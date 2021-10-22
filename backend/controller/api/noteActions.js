@@ -11,7 +11,6 @@ class NoteActions {
             return res.status(500).json({ message: err.message });
         }
 
-        console.log(data);
         res.status(200).json(data);
     }
 
@@ -24,8 +23,6 @@ class NoteActions {
             return res.status(500).json({ message: err.message });
         }
 
-
-        console.log(data);
         res.status(200).json(data);
     }
 
@@ -41,7 +38,6 @@ class NoteActions {
             return res.status(422).json({ message: err.message });
         }
 
-        console.log(note);
         res.status(201).json(note)
     }
 
@@ -51,29 +47,26 @@ class NoteActions {
         const body = req.body.body;
         let note;
 
-        try{
+        try {
             note = await Note.findOne({ _id: id });
             note.title = title;
             note.body = body;
             await note.save()
-        } catch{
+        } catch {
             return res.status(500).json({ message: err.message });
-        }  
-           
-     
+        }
 
-        console.log(note);
         res.status(201).json(note)
     }
 
     async deleteNote(req, res) {
         const id = req.params.id;
 
-        try{
-            await Note.deleteOne({_id: id});
-        } catch{
+        try {
+            await Note.deleteOne({ _id: id });
+        } catch {
             return res.status(500).json({ message: err.message });
-        }  
+        }
 
         res.sendStatus(204);
     }
